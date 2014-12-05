@@ -1,0 +1,13 @@
+montage -tile 1x12 -geometry +0+0 \
+01_grass.png \
+03_wall1.png \
+04_wall2.png \
+05_wall3.png \
+06_wall4.png \
+07_wall5.png \
+08_wall6.png \
+09_wall7.png \
+10_wall8.png \
+11_wall9.png \
+12_wall10.png \
+tile_1x3.png
