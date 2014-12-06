@@ -38,7 +38,7 @@ public class Player {
         vx = 0;
         vy = 0;
         ax = 0;
-        ay = 0.01;
+        ay = 0.02;
         health = 10;
         lives  = 3;
     }
@@ -122,11 +122,12 @@ public class Player {
             vx=1;
         }
         if (key == KeyEvent.VK_DOWN) {
-            vy = 1;
+            //vy = 1;
         }
         if (key == KeyEvent.VK_UP && touchGround) {
-            
-            vy=-1; 
+            vy=-2.2;
+            //vy=-2;
+            //vy=-1; 
             
         }
     }
@@ -140,10 +141,10 @@ public class Player {
             vx=0;
         }
         if (key == KeyEvent.VK_DOWN) {
-            vy=1;
+            //vy=1;
         }
         if (key == KeyEvent.VK_UP) {
-            vy=1;
+            //vy=1;
           
         }
     }

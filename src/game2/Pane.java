@@ -145,11 +145,14 @@ public class Pane extends JPanel implements ActionListener {
 
             if (playerNewX + playerWidth >= tileRectangleMinX && playerOldX + playerWidth <= tileRectangleMinX) {
                 player.setX(tileRectangleMinX - playerWidth - 1);
-                player.setVx(0.0f);
+                //player.setVx(0.0f);
+                //double VxOld=player.getVx();
+                player.setVx(-player.getVx());
 
             } else if (playerNewX <= tileRectangleMaxX && playerOldX >= tileRectangleMaxX) {
                 player.setX(tileRectangleMaxX + 1);
-                player.setVx(0.0f);
+                //player.setVx(0.0f);
+                player.setVx(-player.getVx());
 
             }
         } else {
@@ -159,8 +162,16 @@ public class Pane extends JPanel implements ActionListener {
                 player.setY(tileRectangleMinY - playerHeight);
 
                 player.setVy(0.0f);
+                //player.setVy(-player.getVy());
                 player.setTouchGround(true);
             }
+            //else if (playerNewY <= tileRectangleMaxY && playerOldY >= tileRectangleMaxY) {
+            //    player.setY(tileRectangleMaxX + 1);
+
+            //  player.setVy(0.0f);
+                //player.setVy(-player.getVy());
+                //player.setTouchGround(true);
+            //}
 
         }
 
