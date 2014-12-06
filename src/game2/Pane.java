@@ -88,8 +88,8 @@ public class Pane extends JPanel implements ActionListener {
         myRectangle playerRect = new myRectangle(
                 p1.getX(), p1.getY(), (double) p1.getTileSizeX(), (double) p1.getTileSizeY());
 
-        weDidIt=false;
-        
+        weDidIt = false;
+
         for (int ix = 0; ix < paneSizeX; ix++) {
             for (int jx = 0; jx < paneSizeY; jx++) {
                 if (currentLevel.getMap(ix, jx) > 0) {
@@ -98,27 +98,27 @@ public class Pane extends JPanel implements ActionListener {
                             (double) (ix * tileSizeX), (double) (jx * tileSizeY),
                             (double) (tileSizeX), (double) (tileSizeY));
 
-               //System.out.println("xxxx " + rect.getX0());
+                    //System.out.println("xxxx " + rect.getX0());
                     //System.out.println("yyyy " + rect.getY0());
                     if (intersectRectangle(playerRect, rect)) {
                         //System.out.println("aaaaa! "+ix+" "+jx);
                         resolveCollision(ix, jx, p1, isHorizontal);
-                        weDidIt=true;
-                    } 
-                    
+                        weDidIt = true;
+                    }
+
                 }
             }
         }
-        
-        if(!weDidIt && !isHorizontal) {
-        
-          p1.setTouchGround(false);
-                    
+
+        if (!weDidIt && !isHorizontal) {
+
+            p1.setTouchGround(false);
+
         }
     }
 
     public void resolveCollision(int ix, int jx, Player player, boolean isHorizontal) {
-     // First resolve in y
+        // First resolve in y
         // move upward until not touching
 
         Rectangle tileRec = new Rectangle(ix * tileSizeX, jx * tileSizeY, tileSizeX, tileSizeY);
@@ -128,26 +128,26 @@ public class Pane extends JPanel implements ActionListener {
         double tileRectangleMaxX = tileRec.getMaxX();
         double tileRectangleMinX = tileRec.getMinX();
 
-        double pX = player.getX();
-        double pY = player.getY();
-        double pXOld = player.getOldX();
-        double pYOld = player.getOldY();
+        double playerNewX = player.getX();
+        double playerNewY = player.getY();
+        double playerOldX = player.getOldX();
+        double playerOldY = player.getOldY();
 
-        double pWX = player.getTileSizeX();
-        double pWY = player.getTileSizeY();
+        double playerWidth = player.getTileSizeX();
+        double playerHeight = player.getTileSizeY();
 
-     //System.out.println(pX + " " + pXOld);
+        //System.out.println(pX + " " + pXOld);
         //System.out.println( (pX+pWX) + " " + (pXOld+pWX));
         //System.out.println( tileRectangleMinX);
         // if player entered tile from left -> move left..
         if (isHorizontal) {
-      //System.out.println("I'm trying!");
+            //System.out.println("I'm trying!");
 
-            if (pX + pWX >= tileRectangleMinX && pXOld + pWX <= tileRectangleMinX) {
-                player.setX(tileRectangleMinX - pWX - 1);
+            if (playerNewX + playerWidth >= tileRectangleMinX && playerOldX + playerWidth <= tileRectangleMinX) {
+                player.setX(tileRectangleMinX - playerWidth - 1);
                 player.setVx(0.0f);
 
-            } else if (pX <= tileRectangleMaxX && pXOld >= tileRectangleMaxX) {
+            } else if (playerNewX <= tileRectangleMaxX && playerOldX >= tileRectangleMaxX) {
                 player.setX(tileRectangleMaxX + 1);
                 player.setVx(0.0f);
 
@@ -155,9 +155,9 @@ public class Pane extends JPanel implements ActionListener {
         } else {
 
             // if player entered tile from top -> move up..
-            if (pY + pWY >= tileRectangleMinY && pYOld + pWY <= tileRectangleMinY) {
-                player.setY(tileRectangleMinY - pWY );
-                
+            if (playerNewY + playerHeight >= tileRectangleMinY && playerOldY + playerHeight <= tileRectangleMinY) {
+                player.setY(tileRectangleMinY - playerHeight);
+
                 player.setVy(0.0f);
                 player.setTouchGround(true);
             }
@@ -166,59 +166,55 @@ public class Pane extends JPanel implements ActionListener {
 
     }
 
-
-
-public Rectangle getBounds(int ix, int jx) {
-        return new Rectangle(ix*tileSizeX, jx*tileSizeY,tileSizeX, tileSizeY);
+    public Rectangle getBounds(int ix, int jx) {
+        return new Rectangle(ix * tileSizeX, jx * tileSizeY, tileSizeX, tileSizeY);
     }
 
+    public void actionPerformed(ActionEvent e) {
 
-    public void actionPerformed(ActionEvent e){
-       
-       p1.moveHorizontally();
-       checkCollision(true);
-       p1.moveVertically();
-       checkCollision(false);
-      
-       repaint();
-   
+        p1.moveHorizontally();
+        checkCollision(true);
+        p1.moveVertically();
+        checkCollision(false);
 
-}
+        repaint();
+
+    }
+
     private class AL extends KeyAdapter {
 
-    public void keyReleased(KeyEvent e) {
-        p1.keyReleased(e);
+        public void keyReleased(KeyEvent e) {
+            p1.keyReleased(e);
+        }
+
+        public void keyPressed(KeyEvent e) {
+            p1.keyPressed(e);
+            //System.out.println(X);
+        }
+
     }
 
-    public void keyPressed(KeyEvent e) {
-        p1.keyPressed(e);
-        //System.out.println(X);
-    }
+    public boolean intersectRectangle(myRectangle r1, myRectangle r2) {
 
-}
+        double r1X0 = r1.getX0();
+        double r1X1 = r1.getX1();
+        double r1Y0 = r1.getY0();
+        double r1Y1 = r1.getY1();
 
-public boolean intersectRectangle(myRectangle r1, myRectangle r2) {
-        
-        double r1X0   = r1.getX0();
-        double r1X1   = r1.getX1();
-        double r1Y0   = r1.getY0();
-        double r1Y1   = r1.getY1();
-        
-        double r2X0   = r2.getX0();
-        double r2X1   = r2.getX1();
-        double r2Y0   = r2.getY0();
-        double r2Y1   = r2.getY1();
-        
-        
+        double r2X0 = r2.getX0();
+        double r2X1 = r2.getX1();
+        double r2Y0 = r2.getY0();
+        double r2Y1 = r2.getY1();
+
         //if(X1+W1 > X2 &&  X1+W1<X2+W2  && Y1+H1 > Y2 && Y1+H1 < Y2+H2  ) {
-        if( r1Y1 >= r2Y0 && r1Y0 <= r2Y1 && r1X1 >= r2X0 && r1X0 <= r2X1 ){  
+        if (r1Y1 > r2Y0 && r1Y0 <= r2Y1 && r1X1 > r2X0 && r1X0 <= r2X1) {
          //System.out.println(X1+" " +(X1+W1) + " " + X2 + " " + (X2 +W2) );
-         //System.out.println(Y1+" "+ (Y1+H1) + " " + Y2 + " " + (Y2+H2));
-         //System.out.println("Hitme!");
-         return true;
-        } else {return false;}
-        
-       
-        
+            //System.out.println(Y1+" "+ (Y1+H1) + " " + Y2 + " " + (Y2+H2));
+            //System.out.println("Hitme!");
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
