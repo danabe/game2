@@ -124,7 +124,7 @@ public class Player {
         if (key == KeyEvent.VK_DOWN) {
             vy = 1;
         }
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_UP && touchGround) {
             
             vy=-1; 
             
